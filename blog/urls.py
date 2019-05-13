@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from app2 import views as app2_views
 
 urlpatterns = [
@@ -25,4 +27,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name = 'app2/login.html'), name = 'login'),
     path('logout/', auth_views.LogoutView.as_view(template_name = 'app2/logout.html'), name = 'logout'),
     path('', include('app1.urls')),
-]
+] 
+
+if settings.DEBUG: 
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
